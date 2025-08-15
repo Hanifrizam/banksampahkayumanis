@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Sampah Digital - Ubah Sampah Jadi Rupiah</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header id="main-header">
+        <nav>
+            <a href="#" class="logo">Bank Sampah</a>
+            <ul class="nav-links">
+                <li><a href="#hero">Beranda</a></li>
+                <li><a href="#layanan">Layanan</a></li>
+                <li><a href="#dampak">Dampak</a></li> <li><a href="#update-data">Update Data</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+            <button id="menu-toggle" class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1 class="animate-on-load">Ubah Sampah Menjadi Berkah</h1>
+                <p class="animate-on-load">Solusi digital untuk pengelolaan sampah yang lebih mudah, menguntungkan, dan ramah lingkungan.</p>
+                <a href="#layanan" class="cta-button animate-on-load">Mulai Menabung Sampah</a>
+            </div>
+        </section>
+
+        <section id="layanan" class="content-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Layanan Kami</h2>
+                <div class="layanan-grid">
+                    <div class="card animate-on-scroll">
+                        <i class="fas fa-recycle card-icon"></i>
+                        <h3>Setor Sampah</h3>
+                        <p>Kumpulkan sampah anorganik Anda seperti plastik, kertas, dan logam, lalu setorkan ke titik kami.</p>
+                    </div>
+                    <div class="card animate-on-scroll">
+                        <i class="fas fa-coins card-icon"></i>
+                        <h3>Poin & Hadiah</h3>
+                        <p>Setiap setoran sampah akan dikonversi menjadi poin yang bisa ditukar dengan uang tunai atau hadiah menarik.</p>
+                    </div>
+                    <div class="card animate-on-scroll">
+                        <i class="fas fa-chalkboard-teacher card-icon"></i>
+                        <h3>Edukasi Lingkungan</h3>
+                        <p>Ikuti program edukasi kami untuk belajar lebih banyak tentang pentingnya daur ulang dan gaya hidup minim sampah.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dampak" class="dampak-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Dampak Positif Kita Bersama</h2>
+                <p class="section-subtitle animate-on-scroll">Setiap sampah yang Anda setorkan memberikan kontribusi nyata bagi lingkungan dan komunitas.</p>
+                <div class="stats-container">
+                    <div class="stat-item animate-on-scroll">
+                        <i class="fas fa-weight-hanging"></i>
+                        <span class="stat-number" data-target="0">0</span>
+                        <p>Kg Sampah Terkumpul</p>
+                    </div>
+                    <div class="stat-item animate-on-scroll">
+                        <i class="fas fa-users"></i>
+                        <span class="stat-number" data-target="0">0</span>
+                        <p>Nasabah Aktif</p>
+                    </div>
+                    <div class="stat-item animate-on-scroll">
+                        <i class="fas fa-box-open"></i>
+                        <span class="stat-number" data-target="0">0</span>
+                        <p>Jenis Sampah Terkumpul</p> </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="update-data" class="content-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Update & Unduh Data Sampah</h2>
+                <p class="section-subtitle animate-on-scroll">
+                    Masukkan data terbaru dari hasil penimbangan sampah untuk membuat laporan dalam format Excel.
+                </p>
+                <form id="data-form" class="animate-on-scroll">
+                    <div class="form-group">
+                        <label for="jumlah-nasabah">Jumlah Nasabah</label>
+                        <input type="number" id="jumlah-nasabah" placeholder="Contoh: 15" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="berat-sampah">Berat Sampah (kg)</label>
+                        <input type="number" step="0.1" id="berat-sampah" placeholder="Contoh: 25.5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis-sampah">Jenis Sampah</label>
+                        <select id="jenis-sampah" required>
+                            <option value="" disabled selected>Pilih Jenis Sampah</option>
+                            <option value="Plastik">Plastik</option>
+                            <option value="Kertas / Kardus">Kertas / Kardus</option>
+                            <option value="Logam">Logam</option>
+                            <option value="Kaca">Kaca</option>
+                            <option value="Campuran">Campuran</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="total-rupiah">Total Rupiah (Rp)</label>
+                        <input type="number" id="total-rupiah" placeholder="Contoh: 75000" required>
+                    </div>
+                    <button type="submit" class="cta-button">Unduh Data (Excel)</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="kontak" class="content-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Hubungi Kami</h2>
+                <p class="animate-on-scroll">Punya pertanyaan atau ingin bergabung? Kunjungi kami di alamat berikut atau hubungi nomor di bawah ini.</p>
+                <p class="animate-on-scroll"><strong>Alamat:</strong> Jl. Lingkungan Bersih No. 123, Jakarta</p>
+                <p class="animate-on-scroll"><strong>Telepon:</strong> (021) 123-4567</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Bank Sampah Digital. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
