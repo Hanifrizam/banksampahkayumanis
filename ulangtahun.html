@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khusus Untuk Rismong!</title>
+    <style>
+        /* Mengimpor font lucu dari Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap');
+
+        /* Style dasar untuk halaman */
+        body {
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Mencegah scroll */
+        }
+
+        /* Kontainer utama sebagai kartu ucapan */
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        /* Gambar stiker animasi */
+        #sticker {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover #sticker {
+            transform: scale(1.05);
+        }
+
+        /* Pesan teks */
+        #message {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Judul utama (Selamat Ulang Tahun) */
+        .title {
+            font-family: 'Pacifico', cursive;
+            color: #e91e63; /* Warna pink khas */
+            font-size: 1.8em;
+        }
+
+        /* Kontainer untuk tombol-tombol */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .choice-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        /* Gaya umum untuk tombol */
+        .button {
+            background-color: #ff8fab;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .button:hover {
+            background-color: #e91e63;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+        }
+
+        #forgive-btn {
+            background-color: #4CAF50; /* Hijau untuk afirmatif */
+        }
+        #forgive-btn:hover {
+            background-color: #45a049;
+        }
+
+        #no-forgive-btn {
+            background-color: #f44336; /* Merah untuk negatif */
+        }
+        #no-forgive-btn:hover {
+            background-color: #e53935;
+        }
+
+        /* Kelas untuk menyembunyikan elemen */
+        .hidden {
+            display: none;
+        }
+        
+        /* Konfeti untuk momen akhir */
+        .love-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Agar tidak bisa diklik */
+            overflow: hidden;
+            z-index: 9999;
+        }
+
+        .love {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10%;
+                opacity: 1;
+            }
+            100% {
+                top: 110%;
+                opacity: 0;
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="birthday-song" loop>
+        <source src="https://firebasestorage.googleapis.com/v0/b/voice-card-9289a.appspot.com/o/audios%2Fhappy-birthday-music-box.mp3?alt=media&token=a7216a69-601e-450f-8761-a0c528646011" type="audio/mpeg">
+        Browser kamu tidak mendukung elemen audio.
+    </audio>
+    <div id="love-container" class="love-container"></div>
+
+    <div class="card" id="birthday-card">
+        <img id="sticker" src="https://gifdb.com/images/high/cute-bear-love-you-lots-vpfj7w52g5zvjwir.gif" alt="Stiker Lucu">
+        <p id="message">Hai Rismong, ada sesuatu buat kamu nih! Klik di bawah yaa...</p>
+        
+        <div class="button-container">
+            <button class="button" id="next-btn-1">Selanjutnya</button>
+            
+            <button class="button hidden" id="next-btn-2">Lanjut lagi yuk!</button>
+            
+            <button class="button hidden" id="next-btn-3">Satu kali lagi...</button>
+            
+            <div id="choice-container" class="choice-buttons hidden">
+                <button class="button" id="forgive-btn">Maafin</button>
+                <button class="button" id="no-forgive-btn">Gak dimaafin</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mengambil elemen dari HTML
+        const sticker = document.getElementById('sticker');
+        const message = document.getElementById('message');
+        
+        const nextBtn1 = document.getElementById('next-btn-1');
+        const nextBtn2 = document.getElementById('next-btn-2');
+        const nextBtn3 = document.getElementById('next-btn-3');
+
+        const choiceContainer = document.getElementById('choice-container');
+        const forgiveBtn = document.getElementById('forgive-btn');
+        const noForgiveBtn = document.getElementById('no-forgive-btn');
+        
+        const loveContainer = document.getElementById('love-container');
+
+        // =============================================
+        // BAGIAN BARU YANG DITAMBAHKAN: MENGAMBIL ELEMEN AUDIO
+        const backgroundMusic = document.getElementById('birthday-song');
+        let musicStarted = false;
+        // =============================================
+
+        // Variabel untuk melacak ukuran tombol "Maafin"
+        let forgiveButtonScale = 1;
+        let forgiveButtonFontSize = 1;
+
+        // Daftar stiker dan pesan untuk setiap tahapan
+        const stages = [
+            { // Tahap 1: Ucapan Ulang Tahun
+                sticker: "https://gifdb.com/images/high/cute-brown-bear-birthday-wishes-fze72z0y08fin2vt.gif",
+                message: `<span class="title">Selamat Ulang Tahun yang ke 21 Rismong ❤️❤️❤️</span>`
+            },
+            { // Tahap 2: Doa dan Harapan
+                sticker: "https://gifdb.com/images/high/mochi-cat-peach-cat-bubu-dudu-love-celebrate-wjug33m2lfs8j8am.gif",
+                message: "Semoga kamu diberikan kesehatan selalu dan panjang umurnyaa yeyyy 😉😉😉"
+            },
+            { // Tahap 3: Permintaan Maaf
+                sticker: "https://gifdb.com/images/high/cute-sad-bear-cry-plleadws9h7t0922.gif",
+                message: "Maafin aku yang kemarin ya, karena terlalu sibuk dan buat kamu BT dan gak ngabarin juga dari aku :("
+            },
+            { // Tahap 4: Dimaafin!
+                sticker: "https://gifdb.com/images/high/cute-love-bear-kiss-pcccsknwxzsd85t4.gif",
+                message: `<span class="title">Aaaaaaa thankyouuuu so muchh 🥺🥺🥺🥺</span>`
+            }
+        ];
+
+        // Fungsi untuk membuat hujan emoji hati
+        function createLoveRain() {
+            const loveEmojis = ['❤️', '💖', '🥰', '💕', '😍'];
+            setInterval(() => {
+                const love = document.createElement('div');
+                love.classList.add('love');
+                love.innerText = loveEmojis[Math.floor(Math.random() * loveEmojis.length)];
+                love.style.left = Math.random() * 100 + 'vw';
+                love.style.animationDuration = Math.random() * 2 + 3 + 's'; // durasi 3-5 detik
+                loveContainer.appendChild(love);
+                
+                // Hapus emoji setelah animasinya selesai
+                setTimeout(() => {
+                    love.remove();
+                }, 5000);
+            }, 200); // Munculkan hati baru setiap 200ms
+        }
+
+        // Event Listener untuk tombol-tombol "Selanjutnya"
+        nextBtn1.addEventListener('click', () => {
+            // =============================================
+            // BAGIAN BARU YANG DITAMBAHKAN: MEMULAI MUSIK
+            if (!musicStarted) {
+                backgroundMusic.play();
+                musicStarted = true;
+            }
+            // =============================================
+            
+            sticker.src = stages[0].sticker;
+            message.innerHTML = stages[0].message;
+            nextBtn1.classList.add('hidden');
+            nextBtn2.classList.remove('hidden');
+        });
+
+        nextBtn2.addEventListener('click', () => {
+            sticker.src = stages[1].sticker;
+            message.innerHTML = stages[1].message;
+            nextBtn2.classList.add('hidden');
+            nextBtn3.classList.remove('hidden');
+        });
+
+        nextBtn3.addEventListener('click', () => {
+            sticker.src = stages[2].sticker;
+            message.innerHTML = stages[2].message;
+            nextBtn3.classList.add('hidden');
+            choiceContainer.classList.remove('hidden');
+        });
+
+        // Event listener untuk tombol "Gak dimaafin"
+        noForgiveBtn.addEventListener('click', () => {
+            forgiveButtonScale += 0.2; // Tambah skala
+            forgiveButtonFontSize += 0.2; // Tambah ukuran font
+            forgiveBtn.style.transform = `scale(${forgiveButtonScale})`;
+            forgiveBtn.style.fontSize = `${forgiveButtonFontSize}em`;
+        });
+
+        // Event listener untuk tombol "Maafin"
+        forgiveBtn.addEventListener('click', () => {
+            sticker.src = stages[3].sticker;
+            message.innerHTML = stages[3].message;
+            choiceContainer.classList.add('hidden');
+            
+            // Tampilkan hujan cinta!
+            createLoveRain();
+        });
+
+    </script>
+</body>
+</html>
